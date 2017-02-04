@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+    <head>
+        <title>AngularJS 1.6 Controller Init | Tejus Parikh</title>
+        <meta name='description' content='Angular JS has introduced new lifecycle hooks for controllers that work everywhere.'>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js'></script>
+        <script src='script.js'></script>
+    </head>
+    <body>
+        <script type="text/ng-template" id="/directive-tpl.html">
+            <h4>Was on init called? 
+                <span ng-if='$drctv.did_on_init'>Yes!</span>
+                <span ng-if='!$drctv.did_on_init'>No!</span>
+            </h4>
+        </script>
+        
+        <script type="text/ng-template" id="/component-tpl.html">
+            <h4>Was on init called? 
+                <span ng-if='$ctrl.did_on_init'>Yes!</span>
+                <span ng-if='!$ctrl.did_on_init'>No!</span>
+            </h4>
+        </script>
+
+        <h1>Angular JS Controller On Init</h1>
+
+        <p>Examples that show the universality of the <code>$onInit</code> lifecycle
+            callback in AngularJS. View the 
+            <a target='_blank' href="view-source:http://www.example.com">source of this page</a>
+            and the <a target='_blank' href='script.js'>script</a> for more details.
+        </p>
+
+        <h3>Scoped Angular JS controller</h3>
+        <div class='demo-box' ng-controller='ScopedCtrl'>
+            <p>This is a traditional Angular controller that uses <code>$scope</code>. In this case, 
+                this is how you write the controller function:</p>
+
+            <pre>
+    function ScopedControllerFunc($scope) { 
+        this.$onInit = function() {
+            $scope.did_on_init = true;
+        };
+    }
+            </pre>
+
+            <h4>Was on init called? 
+                <span ng-if='did_on_init'>Yes!</span>
+                <span ng-if='!did_on_init'>No!</span>
+            </h4>
+        </div>
+        
+        <hr>
+        <h3>CtrlAs Angular JS Controller</h3>
+        <div class='demo-box' ng-controller='CtrlAsCtrl as $ctrl'>
+            <p>This is an Angular Ctrl that uses <code>CtrlAs</code>. In this case, 
+                this is how you write the controller function:</p>
+
+            <pre>
+    function CtrlAsControllerFunc() { 
+        var $ctrl = this;
+        $ctrl.$onInit = function() {
+            $ctrl.did_on_init = true;
+        };
+    }
+            </pre>
+
+            <h4>Was on init called? 
+                <span ng-if='$ctrl.did_on_init'>Yes!</span>
+                <span ng-if='!$ctrl.did_on_init'>No!</span>
+            </h4>
+        </div>
+
+        <hr>
+        <h3>Controllers Within Directives</h3>
+        <div class='demo-box'>
+            <p>This is an Angular Ctrl within a Directive. In this case, 
+                this is how you write the controller function:</p>
+
+            <pre>
+    function CtrlAsControllerFunc() { 
+        var $drctv = this;
+        $drctv.$onInit = function() {
+            $drctv.did_on_init = true;
+        };
+    }
+            </pre>
+            <directive-with-ctrl></directive-with-ctrl>
+        </div>
+
+        <hr>
+        <h3>Controllers Within Components</h3>
+        <div class='demo-box'>
+            <p>This is an Angular Ctrl within an Component. In this case, 
+                this is how you write the controller function:</p>
+
+            <pre>
+    function CtrlAsControllerFunc() { 
+        var $ctrl = this;
+        $ctrl.$onInit = function() {
+            $ctrl.did_on_init = true;
+        };
+    }
+            </pre>
+            <component-ctrl></component-ctrl>
+        </div> 
+    </body>
+</html>
